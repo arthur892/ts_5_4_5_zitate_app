@@ -36,6 +36,19 @@ class _QuotesScreenState extends State<QuotesScreen> {
       //Json decoden
       final List<dynamic> decodedJson = jsonDecode(response.body);
       log(decodedJson.toString());
+      log(decodedJson[0]["quote"]);
+
+      /*
+[{
+....dec
+},
+  {
+    "quote": "Knowledge is power. Information is liberating. Education is the premise of progress, in every society, in every family.",
+    "author": "Kofi Annan",
+    "category": "knowledge"
+  }
+]
+*/
 
       final Map<String, dynamic> decoded2 = jsonDecode(response.body);
       log(decoded2.toString());
