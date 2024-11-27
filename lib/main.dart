@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ts_5_4_5_zitate_app/quotes/quotes_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,19 +10,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("data"),
-              ElevatedButton(onPressed: null, child: Text("Laden"))
-            ],
+          appBar: AppBar(
+            title: const Text("Quotes App"),
+            centerTitle: true,
           ),
-        ),
-      ),
+          body: const QuotesScreen()),
     );
   }
 }
