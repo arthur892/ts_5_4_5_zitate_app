@@ -34,22 +34,24 @@ class _QuotesScreenState extends State<QuotesScreen> {
 
     if (response.statusCode == 200) {
       //Json decoden
-      log(response.body);
       final List<dynamic> decodedJson = jsonDecode(response.body);
-      final Map<String, dynamic> decoded2 = jsonDecode(decodedJson[0]);
-      log(decoded2["quote"]);
+      log(decodedJson.toString());
+
+      final Map<String, dynamic> decoded2 = jsonDecode(response.body);
+      log(decoded2.toString());
+
+      //log(decoded2["quote"]);
 
       //final quote = decodedJson['quote'];
-      log('Quote ${decodedJson[0]}');
       return [];
     }
 
-    log("Fetch data: ${response.body}");
+    //log("Fetch data: ${response.body}");
     return [];
   }
 
   Future<String> getQuote() async {
-    log("getQuote");
+    //log("getQuote");
     return "getQuote";
   }
 
