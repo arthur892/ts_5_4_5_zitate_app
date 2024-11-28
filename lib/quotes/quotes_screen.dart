@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ts_5_4_5_zitate_app/auth/api_keys.dart';
 import 'package:ts_5_4_5_zitate_app/quotes/model/quotes_model.dart';
+import 'package:ts_5_4_5_zitate_app/quotes/quotes_widget.dart';
 
 class QuotesScreen extends StatefulWidget {
   const QuotesScreen({super.key});
@@ -18,7 +19,6 @@ class _QuotesScreenState extends State<QuotesScreen> {
   @override
   void initState() {
     super.initState();
-    //quote = getQuote();
   }
 
   Future<QuotesModel> getQuote() async {
@@ -60,24 +60,36 @@ class _QuotesScreenState extends State<QuotesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
+        //crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FutureBuilder(
-              future: getQuote(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (!snapshot.hasData) {
-                  return const Center(child: Text('NoData'));
-                }
-                return Text(snapshot.data!.author);
-              }),
-          ElevatedButton(onPressed: getQuote, child: const Text("Laden"))
+          SizedBox(
+            height: 200,
+            child: FutureBuilder(
+                future: getQuote(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData) {
+                    return const Center(child: Text('NoData'));
+                  }
+                  return QuotesWidget(
+                    quote: snapshot.data!,
+                  );
+                }),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  getQuote();
+                });
+              },
+              child: const Text("Load"))
         ],
       ),
     );
