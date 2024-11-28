@@ -58,6 +58,8 @@ class _QuotesScreenState extends State<QuotesScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DropdownMenu(
+                width: 200,
+                menuHeight: 400,
                 initialSelection: QuoteCategorys.all,
                 onSelected: (QuoteCategorys? category) {
                   setState(() {
@@ -76,19 +78,11 @@ class _QuotesScreenState extends State<QuotesScreen> {
                   onPressed: () async {
                     try {
                       await quotes.getQuoteAPI(selectedCategory!);
+                      setState(() {});
                     } catch (e) {
                       dev.log('Failed fetch $selectedCategory');
                       dev.log('$e');
                     }
-
-                    setState(() {
-                      // try {
-
-                      //   quotes.loadQuote();
-                      // } catch (e) {
-                      //   dev.log(e.toString());
-                      // }
-                    });
                   },
                   child: const Text("Load form API")),
             ],
