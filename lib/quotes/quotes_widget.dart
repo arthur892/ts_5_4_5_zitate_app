@@ -10,7 +10,7 @@ class QuotesWidget extends StatelessWidget {
 
   Row formatText({required String label, required String data}) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
           width: 100,

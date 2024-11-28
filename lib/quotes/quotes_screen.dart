@@ -1,11 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
+import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:ts_5_4_5_zitate_app/auth/api_keys.dart';
-import 'package:ts_5_4_5_zitate_app/quotes/model/quotes_model.dart';
+import 'package:ts_5_4_5_zitate_app/quotes/data/quotes_repo.dart';
+import 'package:ts_5_4_5_zitate_app/quotes/enum_quote_categorys.dart';
 import 'package:ts_5_4_5_zitate_app/quotes/quotes_widget.dart';
 
 class QuotesScreen extends StatefulWidget {
@@ -16,47 +13,16 @@ class QuotesScreen extends StatefulWidget {
 }
 
 class _QuotesScreenState extends State<QuotesScreen> {
+  QuotesRepo quotes = QuotesRepo();
   @override
   void initState() {
     super.initState();
   }
 
-  Future<QuotesModel> getQuote() async {
-    Map<String, String> queryheaders = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'X-Api-Key': api_quote
-    };
+  final TextEditingController categorysController = TextEditingController();
+  QuoteCategorys? selectedCategory = QuoteCategorys.all;
 
-    //https://api.api-ninjas.com/v1/quotes?category=best
-
-    final Uri uri = Uri.https('api.api-ninjas.com', '/v1/quotes');
-    final http.Response response = await http.get(uri, headers: queryheaders);
-
-    //Response
-    /*
-[
-{
-...
-},
-  {
-    "quote": "Knowledge is power. Information is liberating. Education is the premise of progress, in every society, in every family.",
-    "author": "Kofi Annan",
-    "category": "knowledge"
-  }
-]
-*/
-
-    if (response.statusCode == 200) {
-      //Json decoden
-      final List<dynamic> decodedJson = jsonDecode(response.body);
-      log("Fetch data: $decodedJson");
-      log(decodedJson[0]["category"]);
-      final quote = QuotesModel.fromJson(decodedJson[0]);
-      return quote;
-    }
-    throw TimeoutException("Status Code != 200");
-  }
+  //final SharedPreferencesAsync savedData = SharedPreferencesAsync();
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +33,19 @@ class _QuotesScreenState extends State<QuotesScreen> {
         //crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 200,
+            height: 250,
             child: FutureBuilder(
-                future: getQuote(),
+                future: quotes.loadQuote(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    dev.log('Error: ${snapshot.error}');
+                    return const Center(
+                        child: Text(
+                      'Noch keine Zitate geladen!',
+                      style: TextStyle(color: Colors.blue, fontSize: 20),
+                    ));
                   } else if (!snapshot.hasData) {
                     return const Center(child: Text('NoData'));
                   }
@@ -83,13 +54,54 @@ class _QuotesScreenState extends State<QuotesScreen> {
                   );
                 }),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DropdownMenu(
+                initialSelection: QuoteCategorys.all,
+                onSelected: (QuoteCategorys? category) {
+                  setState(() {
+                    selectedCategory = category;
+                  });
+                },
+                dropdownMenuEntries:
+                    QuoteCategorys.values.map((QuoteCategorys category) {
+                  return DropdownMenuEntry<QuoteCategorys>(
+                    value: category, // Das Enum als Wert
+                    label: category.label, // Label aus der Enum-Instanz
+                  );
+                }).toList(), // Map liefert Iterable, also in eine Liste umwandeln
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await quotes.getQuoteAPI(selectedCategory!);
+                    } catch (e) {
+                      dev.log('Failed fetch $selectedCategory');
+                      dev.log('$e');
+                    }
+
+                    setState(() {
+                      // try {
+
+                      //   quotes.loadQuote();
+                      // } catch (e) {
+                      //   dev.log(e.toString());
+                      // }
+                    });
+                  },
+                  child: const Text("Load form API")),
+            ],
+          ),
+          const SizedBox(
+            height: 40,
+          ),
           ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  getQuote();
-                });
+              onPressed: () async {
+                await quotes.deleteQuote();
+                setState(() {});
               },
-              child: const Text("Load"))
+              child: const Text("Delete from SharedPref"))
         ],
       ),
     );

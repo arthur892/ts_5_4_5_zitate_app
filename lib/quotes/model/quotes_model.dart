@@ -20,4 +20,12 @@ class QuotesModel {
       'category': category,
     };
   }
+
+  List<String> toSharedPref() {
+    return [quote, author, category];
+  }
+
+  factory QuotesModel.formSharedPref(List<String> data) {
+    return QuotesModel(quote: data[0], author: data[1], category: data[2]);
+  }
 }
