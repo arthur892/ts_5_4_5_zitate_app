@@ -24,7 +24,7 @@ class QuotesRepo {
     try {
       final quoteAsList = await savedData.getStringList(keyquote);
 
-      return QuotesModel.formSharedPref(quoteAsList!);
+      return QuotesModel.fromSharedPref(quoteAsList!);
     } catch (e) {
       throw Exception("QuoteRepo.loadQoute ${e.toString()}");
     }
@@ -38,7 +38,7 @@ class QuotesRepo {
     }
   }
 
-  Future<QuotesModel> getQuoteAPI(QuoteCategorys categorie) async {
+  Future<QuotesModel> getQuoteAPI(QuoteCategorys category) async {
     Map<String, String> queryheaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -52,11 +52,11 @@ class QuotesRepo {
 
     //Request Category
     //If all is seleceted, the query has to be empty
-    dev.log('Category selected: $categorie');
-    if (categorie == QuoteCategorys.all) {
+    dev.log('Category selected: $category');
+    if (category == QuoteCategorys.all) {
       uri = Uri.https('api.api-ninjas.com', '/v1/quotes');
     } else {
-      queryParameters = {'category': categorie.label};
+      queryParameters = {'category': category.label};
       uri = Uri.https('api.api-ninjas.com', '/v1/quotes', queryParameters);
     }
 

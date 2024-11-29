@@ -25,7 +25,7 @@ class QuotesModel {
     return [quote, author, category];
   }
 
-  factory QuotesModel.formSharedPref(List<String> data) {
+  factory QuotesModel.fromSharedPref(List<String> data) {
     return QuotesModel(quote: data[0], author: data[1], category: data[2]);
   }
 }

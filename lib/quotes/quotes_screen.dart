@@ -89,7 +89,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                       dev.log('$e');
                     }
                   },
-                  child: const Text("Load form API")),
+                  child: const Text("Load from API")),
             ],
           ),
           const SizedBox(
