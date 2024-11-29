@@ -78,7 +78,14 @@ class _QuotesScreenState extends State<QuotesScreen> {
                       await quotes.getQuoteAPI(selectedCategory!);
                       setState(() {});
                     } catch (e) {
-                      dev.log('Failed fetch $selectedCategory');
+                      final String errorText = 'Failed fetch $selectedCategory';
+                      dev.log(errorText);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: const Duration(seconds: 8),
+                          content: Text("$errorText\n$e",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.error))));
                       dev.log('$e');
                     }
                   },

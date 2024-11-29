@@ -16,7 +16,7 @@ class QuotesRepo {
     try {
       await savedData.setStringList(keyquote, quote.toSharedPref());
     } catch (e) {
-      throw Exception("QuoteRepo.saveQuote Exception ${e.toString()}");
+      throw Exception("QuoteRepo.saveQuote ${e.toString()}");
     } finally {}
   }
 
@@ -26,7 +26,7 @@ class QuotesRepo {
 
       return QuotesModel.formSharedPref(quoteAsList!);
     } catch (e) {
-      throw Exception("QuoteRepo.loadQoute Exception ${e.toString()}");
+      throw Exception("QuoteRepo.loadQoute ${e.toString()}");
     }
   }
 
@@ -34,7 +34,7 @@ class QuotesRepo {
     try {
       await savedData.remove(keyquote);
     } catch (e) {
-      dev.log("QuoteRepo.deleteQuote Exception ${e.toString()}");
+      dev.log("QuoteRepo.deleteQuote ${e.toString()}");
     }
   }
 
@@ -87,14 +87,14 @@ class QuotesRepo {
         await Future.delayed(const Duration(milliseconds: 100));
         return quote;
       } else {
-        throw Exception('Failed with code: ${response.statusCode}');
+        throw Exception('Failed with code ${response.statusCode}');
       }
     } on http.ClientException catch (e) {
       throw Exception('ClientException: ${e.message}');
     } on FormatException catch (e) {
       throw Exception('FormatException: ${e.message}');
     } catch (e) {
-      throw Exception('Exception: $e');
+      throw Exception('QuoteRepo.getQuoteAPI: $e');
     }
   }
 }
