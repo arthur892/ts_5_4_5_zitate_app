@@ -5,7 +5,7 @@ import 'dart:developer' as dev;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ts_5_4_5_zitate_app/auth/api_keys.dart';
-import 'package:ts_5_4_5_zitate_app/quotes/enum_quote_categorys.dart';
+import 'package:ts_5_4_5_zitate_app/quotes/model/enum_quote_categorys.dart';
 import 'package:ts_5_4_5_zitate_app/quotes/model/quotes_model.dart';
 
 class QuotesRepo {

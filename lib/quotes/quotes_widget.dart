@@ -72,7 +72,9 @@ class QuotesWidget extends StatelessWidget {
               "- ${quote.author}",
               softWrap: true,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
             ),
           ),
         ),

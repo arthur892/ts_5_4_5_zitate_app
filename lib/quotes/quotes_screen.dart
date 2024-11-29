@@ -2,7 +2,7 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:ts_5_4_5_zitate_app/quotes/data/quotes_repo.dart';
-import 'package:ts_5_4_5_zitate_app/quotes/enum_quote_categorys.dart';
+import 'package:ts_5_4_5_zitate_app/quotes/model/enum_quote_categorys.dart';
 import 'package:ts_5_4_5_zitate_app/quotes/quotes_widget.dart';
 
 class QuotesScreen extends StatefulWidget {
