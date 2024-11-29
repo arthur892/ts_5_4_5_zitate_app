@@ -10,11 +10,11 @@ import 'package:ts_5_4_5_zitate_app/quotes/model/quotes_model.dart';
 
 class QuotesRepo {
   final SharedPreferencesAsync savedData = SharedPreferencesAsync();
-  final key_quote = "quote";
+  final keyquote = "quote";
 
   void saveQuote(QuotesModel quote) async {
     try {
-      await savedData.setStringList(key_quote, quote.toSharedPref());
+      await savedData.setStringList(keyquote, quote.toSharedPref());
     } catch (e) {
       throw Exception("QuoteRepo.saveQuote Exception ${e.toString()}");
     } finally {}
@@ -22,7 +22,7 @@ class QuotesRepo {
 
   Future<QuotesModel> loadQuote() async {
     try {
-      final quoteAsList = await savedData.getStringList(key_quote);
+      final quoteAsList = await savedData.getStringList(keyquote);
 
       return QuotesModel.formSharedPref(quoteAsList!);
     } catch (e) {
@@ -32,7 +32,7 @@ class QuotesRepo {
 
   Future<void> deleteQuote() async {
     try {
-      await savedData.remove(key_quote);
+      await savedData.remove(keyquote);
     } catch (e) {
       dev.log("QuoteRepo.deleteQuote Exception ${e.toString()}");
     }

@@ -19,3 +19,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: BunchBlossoms
+      fonts:
+      - asset: fonts/BunchBlossoms.ttf
+    - family: BeautyMountains
+      fonts:
+      - asset: fonts/BeautyMountainsPersonalUse-od7z.ttf

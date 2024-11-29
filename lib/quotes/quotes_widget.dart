@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ts_5_4_5_zitate_app/quotes/model/quotes_model.dart';
+import 'package:ts_5_4_5_zitate_app/theme/const_theme.dart';
 
 class QuotesWidget extends StatelessWidget {
   final QuotesModel quote;
@@ -20,10 +21,15 @@ class QuotesWidget extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Text(
-            data,
-            softWrap: true,
-            //maxLines: 5,
+          child: Container(
+            decoration: BoxDecoration(color: Colors.grey.withOpacity(0.15)),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+              child: Text(
+                data,
+                softWrap: true,
+              ),
+            ),
           ),
         )
       ],
@@ -34,9 +40,46 @@ class QuotesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        formatText(label: "Author", data: quote.author),
         formatText(label: "Category", data: quote.category),
-        formatText(label: "Quote", data: quote.quote)
+        const SizedBox(
+          height: 8,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              quote.quote,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 7,
+              style: const TextStyle(
+                  fontFamily: fontFamilyBeautyMountains, fontSize: 30),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
+            child: Text(
+              "- ${quote.author}",
+              softWrap: true,
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+            ),
+          ),
+        ),
+
+        // Container(
+        //     decoration: BoxDecoration(color: Colors.grey.withOpacity(0.15)),
+        //     child: formatText(label: "Quote", data: quote.quote)),
       ],
     );
   }

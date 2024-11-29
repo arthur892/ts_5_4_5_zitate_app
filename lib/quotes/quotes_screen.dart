@@ -33,7 +33,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
         //crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 250,
+            height: 500,
             child: FutureBuilder(
                 future: quotes.loadQuote(),
                 builder: (context, snapshot) {
@@ -62,9 +62,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
                 menuHeight: 400,
                 initialSelection: QuoteCategorys.all,
                 onSelected: (QuoteCategorys? category) {
-                  setState(() {
-                    selectedCategory = category;
-                  });
+                  selectedCategory = category;
                 },
                 dropdownMenuEntries:
                     QuoteCategorys.values.map((QuoteCategorys category) {
