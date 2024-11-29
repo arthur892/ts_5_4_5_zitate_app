@@ -67,10 +67,10 @@ class _QuotesScreenState extends State<QuotesScreen> {
                 dropdownMenuEntries:
                     QuoteCategorys.values.map((QuoteCategorys category) {
                   return DropdownMenuEntry<QuoteCategorys>(
-                    value: category, // Das Enum als Wert
-                    label: category.label, // Label aus der Enum-Instanz
+                    value: category,
+                    label: category.label,
                   );
-                }).toList(), // Map liefert Iterable, also in eine Liste umwandeln
+                }).toList(),
               ),
               ElevatedButton(
                   onPressed: () async {
