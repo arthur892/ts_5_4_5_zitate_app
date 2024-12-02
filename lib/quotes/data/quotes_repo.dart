@@ -56,7 +56,7 @@ class QuotesRepo {
     if (category == QuoteCategorys.all) {
       uri = Uri.https('api.api-ninjas.com', '/v1/quotes');
     } else {
-      queryParameters = {'category': category.label};
+      queryParameters = {'category': category.apiCall};
       uri = Uri.https('api.api-ninjas.com', '/v1/quotes', queryParameters);
     }
 
